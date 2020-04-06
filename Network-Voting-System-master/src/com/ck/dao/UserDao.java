@@ -3,6 +3,7 @@ package com.ck.dao;
 import java.util.List;
 
 import com.ck.po.User;
+import com.ck.po.page;
 
 public interface UserDao {
 	public User login(User user); // 用户登录
@@ -22,5 +23,13 @@ public interface UserDao {
 	public void updateToFalse(User userQuery);
 
 	public void updateToNewLock(User userQuery);
+
+	public List<User> serchUserAll(page page);
+
+	public int getCountAll();
+
+	public List<User> serchByFabu(page page);
+
+	public Integer getcountFabu();
 
 }

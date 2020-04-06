@@ -87,6 +87,7 @@ public class UserController {
 							session.setAttribute("id", user.getId());
 							session.setAttribute("isadmin", user.getIsadmin());
 							session.setAttribute("name", user.getNickName());
+							session.setAttribute("user", user);
 							System.out.println(session);
 							 userService.updateToSuccess(userQuery);
 							 result.setSuccess(true);

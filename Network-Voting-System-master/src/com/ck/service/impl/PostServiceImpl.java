@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ck.dao.PostDao;
 import com.ck.po.Post;
+import com.ck.po.page;
 import com.ck.service.PostService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,10 +25,8 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 
-	public Integer delete(Integer id) {
+	public Integer delete(Post post) {
 		try {
-			Post post = new Post();
-			post.setPostState(2);
 			return postDao.update(post);
 		} catch (Exception e) {
 			return 0;
@@ -70,6 +69,18 @@ public class PostServiceImpl implements PostService {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public Integer getCountAll() {
+		// TODO Auto-generated method stub
+		return postDao.getCountAll();
+	}
+
+	@Override
+	public List<Post> searchByPageAll(page page) {
+		// TODO Auto-generated method stub
+		return postDao.searchByPageAll(page);
 	}
 
 }

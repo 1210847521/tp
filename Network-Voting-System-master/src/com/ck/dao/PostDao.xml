@@ -3,10 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ck.dao.PostDao">
 
-	<sql id="col">id,user_id AS userId,title,introduce,poll_type AS
-		pollType,open_show AS openShow,open_poll AS openPoll,open_result AS
-		openResult,max_poll AS maxPoll,post_state AS postState,post_date AS
-		postDate
+	<sql id="col">id,userId AS userId,title,introduce,pollType AS
+		pollType,openShow AS openShow,openPoll AS openPoll,openResult AS
+		openResult,maxPoll AS maxPoll,postState AS postState,postDate AS
+		postDate,ztname,ztId
 	</sql>
 
 	<select id="select" parameterType="Post" resultType="Post">
@@ -16,7 +16,7 @@
 		post
 		<where>
 			<if test="userId != null">
-				and user_id = #{userId}
+				and userId = #{userId}
 			</if>
 			<if test="title != null and title != ''">
 				<bind name="title1" value="'%'+ title +'%'" />
@@ -27,22 +27,22 @@
 				and introduce like #{introduce1}
 			</if>
 			<if test="pollType != null">
-				and poll_type = #{pollType}
+				and pollType = #{pollType}
 			</if>
 			<if test="openShow != null">
-				and open_show = #{openShow}
+				and openShow = #{openShow}
 			</if>
 			<if test="openPoll != null">
-				and open_poll = #{openPoll}
+				and openPoll = #{openPoll}
 			</if>
 			<if test="openResult != null">
-				and open_result = #{openResult}
+				and openResult = #{openResult}
 			</if>
 			<if test="maxPoll != null">
-				and max_poll = #{maxPoll}
+				and maxPoll = #{maxPoll}
 			</if>
 			<if test="postState != null">
-				and post_state = #{postState}
+				and postState = #{postState}
 			</if>
 		</where>
 	</select>
@@ -53,31 +53,46 @@
 		FROM
 		post
 		WHERE
-		user_id = #{userId}
+		userId = #{userId}
 	</select>
 
 	<select id="selectById" parameterType="Integer" resultType="Post">
 		SELECT
-		<include refid="col" />
+		p.*,zt.name as ztname,u.name as userName
 		FROM
-		post
+		post as p
+		left join zhuti as zt on p.ztId=zt.id  
+		left join user u on p.userId=u.id
 		WHERE
-		id = #{id}
+		p.id = #{id}
+	</select>
+	
+	<select id="getCountAll" resultType="Integer">
+		SELECT
+		count(*) from post as p
+		left join zhuti as zt on p.ztId=zt.id  
+	</select>
+	
+	<select id="searchByPageAll" resultType="Post">
+		SELECT p.*,zt.name as ztname from post
+		 as p
+		left join zhuti as zt on p.ztId=zt.id  
+    limit #{start},#{num} 
 	</select>
 
 	<insert id="insert" parameterType="Post" keyProperty="id"
 		useGeneratedKeys="true">
 		INSERT post (
-		user_id,
+		userId,
 		title,
 		introduce,
-		poll_type,
-		open_show,
-		open_poll,
-		open_result,
-		max_poll,
-		post_state,
-		post_date)
+		pollType,
+		openShow,
+		openPoll,
+		openResult,
+		maxPoll,
+		postState,
+		postDate)
 		VALUES
 		(#{userId},#{title},#{introduce},#{pollType},#{openShow},#{openPoll},#{openResult},#{maxPoll},#{postState},now())
 	</insert>
@@ -100,25 +115,31 @@
 				introduce=#{introduce},
 			</if>
 			<if test="pollType != null">
-				poll_type=#{pollType},
+				pollType=#{pollType},
 			</if>
 			<if test="openShow != null">
-				open_show=#{openShow},
+				openShow=#{openShow},
 			</if>
 			<if test="openPoll != null">
-				open_poll=#{openPoll},
+				openPoll=#{openPoll},
 			</if>
 			<if test="openResult != null">
-				open_result=#{openResult},
+				openResult=#{openResult},
 			</if>
 			<if test="maxPoll != null">
-				max_poll=#{maxPoll},
+				maxPoll=#{maxPoll},
 			</if>
 			<if test="postState != null">
-				post_state=#{postState},
+				postState=#{postState},
 			</if>
 			<if test="postDate != null and postDate != ''">
-				post_date=#{postDate},
+				postDate=#{postDate},
+			</if>
+			<if test="deluid != null ">
+				deluid=#{deluid},
+			</if>
+			<if test="deltime != null and postDate != ''">
+				deltime=#{deltime},
 			</if>
 		</set>
 		WHERE

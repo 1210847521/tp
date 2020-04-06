@@ -3,6 +3,7 @@ package com.ck.service;
 import java.util.List;
 
 import com.ck.po.User;
+import com.ck.po.page;
 import com.github.pagehelper.PageInfo;
 
 public interface UserService {
@@ -25,5 +26,15 @@ public interface UserService {
 	public void updateToFalse(User userQuery);
 
 	public void updateToNewLock(User userQuery);
+
+	public List<User> serchUserAll(page page);
+
+	public int getCountAll();
+
+	public Integer delUser(Integer id);
+
+	public Integer getcountFabu();
+
+	public List<User> serchByFabu(page page);
 
 }

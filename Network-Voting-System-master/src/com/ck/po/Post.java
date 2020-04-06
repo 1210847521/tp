@@ -19,13 +19,29 @@ public class Post {
 	private Integer openPoll; // 是否可以不登录投票 0都可投票 1登录后可投票
 	private Integer openResult; // 是否公开投票结果 0公开投票结果 1不公开投票结果
 	private Integer maxPoll; // 最多投票数量
-	private Integer postState; // 发布状态 0正常 1暂停 2删除
+	private Integer postState; //  0待审核 1审核通过 2审核失败 3删除
 	private Date postDate; // 发布时间
-	private Integer ztId; // 发布时间
+	
 	private List<Option> option; // 发布的投票选项
 
-	private String userName; // 标题
+	private Integer ztId; // 主题id
 	
+	private String userName; // 用户姓名
+	
+	private Integer deluid; //删除人
+	
+	private Date deltime;  //删除时间
+	
+	private String ztname;
+	
+	public String getZtname() {
+		return ztname;
+	}
+
+	public void setZtname(String ztname) {
+		this.ztname = ztname;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -136,6 +152,22 @@ public class Post {
 
 	public void setZtId(Integer ztId) {
 		this.ztId = ztId;
+	}
+	
+	public Integer getDeluid() {
+		return deluid;
+	}
+
+	public void setDeluid(Integer deluid) {
+		this.deluid = deluid;
+	}
+
+	public Date getDeltime() {
+		return deltime;
+	}
+
+	public void setDeltime(Date deltime) {
+		this.deltime = deltime;
 	}
 
 	@Override

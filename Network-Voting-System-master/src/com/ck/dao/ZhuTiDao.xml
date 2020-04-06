@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ck.dao.ZhuTiDao">
+
+	<sql id="col">id,name,note,addtime,adduid,adduname
+	</sql>
+
+	<select id="select" parameterType="ZhuTi" resultType="ZhuTi">
+		SELECT
+		<include refid="col" />
+		FROM
+		zhuti
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="listAll" resultType="ZhuTi">
+		SELECT
+		<include refid="col" />
+		FROM
+		zhuti
+	</select>
+
+	<select id="selectByUserId" parameterType="Integer" resultType="ZhuTi">
+		SELECT
+		<include refid="col" />
+		FROM
+		zhuti
+		WHERE
+		id = #{id}
+	</select>
+
+	<select id="selectById" parameterType="Integer" resultType="ZhuTi">
+		SELECT
+		<include refid="col" />
+		FROM
+		zhuti
+		WHERE
+		id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="ZhuTi" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT zhuti (
+		name,
+		note,
+		addtime,
+		adduid,
+		adduname)
+		VALUES
+		(#{name},#{note},now(),#{adduid}#{adduname})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		DELETE
+		FROM
+		zhuti
+		WHERE
+		id = #{id}
+	</delete>
+
+	<update id="update" parameterType="ZhuTi">
+		UPDATE zhuti
+		<set>
+			<if test="name != null and name != ''">
+				title=#{name},
+			</if>
+			<if test="note != null and note != ''">
+				note=#{note}
+			</if>
+		</set>
+		WHERE
+		id = #{id}
+	</update>
+</mapper>

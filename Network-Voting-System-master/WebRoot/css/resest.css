@@ -1,0 +1,23 @@
+@charset "utf-8";
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td, img,div,dl,dt,dd,input{
+ margin: 0;
+ padding: 0;
+}
+body{
+    font-size: 12px;
+    background-color:#f6f6f6;
+
+}
+img{
+    border: none;
+}
+li{
+    list-style: none;
+}
+textarea{
+    resize: none;
+}
+a{
+    text-decoration: none;
+}
+

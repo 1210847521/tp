@@ -9,8 +9,14 @@
 		SELECT *
 		FROM
 		user
-		WHERE
-		name = #{name}
+		WHERE 1=1
+		<if test="id != null">
+				and id = #{id}
+		</if>
+		<if test="name != null">
+			and name = #{name}
+		</if>
+		
 	</select>
 
 	<select id="select" parameterType="User" resultType="User">
@@ -105,5 +111,21 @@
 		WHERE
 		id = #{id}
 	</update>
+	
+	<select id="getCountAll" resultType="int" >
+      select count(id) from `user` 
+   </select>
+   
+   <select id="getcountFabu" resultType="int" >
+      select count(id) from `user`  where isfabu=2
+   </select>
+   
+    <select id="serchUserAll" resultType="User" >
+      select *from `user` limit #{start},#{num}
+   </select>
+   
+    <select id="serchByFabu" resultType="User" >
+      select *from `user` where isfabu=2 limit #{start},#{num}
+   </select>
 
 </mapper>

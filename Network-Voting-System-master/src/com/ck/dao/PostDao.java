@@ -3,6 +3,7 @@ package com.ck.dao;
 import java.util.List;
 
 import com.ck.po.Post;
+import com.ck.po.page;
 
 public interface PostDao {
 
@@ -17,5 +18,9 @@ public interface PostDao {
 	public Integer update(Post post); // 修改发布
 
 	public Integer delete(Integer id); // 删除发布
+
+	public Integer getCountAll();
+
+	public List<Post> searchByPageAll(page page);
 
 }

@@ -1,6 +1,10 @@
 package com.ck.controller;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +51,13 @@ public class PostController {
 
 	@GetMapping("/delete/{id}")
 	@ResponseBody
-	public Integer delete(@PathVariable Integer id) {
-		Integer ok = postService.delete(id);
+	public Integer delete(HttpSession session,@PathVariable Integer id) {
+		Post post=new Post();
+		post.setId(id);
+		post.setPostState(3);
+		post.setDeluid((Integer)(session.getAttribute("id")));
+		post.setDeltime(new Date());
+		Integer ok = postService.delete(post);
 		if (ok != 0) {
 			return 1;
 		} else {
@@ -120,5 +129,7 @@ public class PostController {
 		model.addAttribute("title", title);
 		return "/post.jsp";
 	}
+	
+	
 
 }

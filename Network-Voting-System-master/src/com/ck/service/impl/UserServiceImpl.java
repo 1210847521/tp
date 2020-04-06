@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ck.dao.UserDao;
 import com.ck.po.User;
+import com.ck.po.page;
 import com.ck.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -89,6 +90,36 @@ public class UserServiceImpl implements UserService {
 
 	public void updateToNewLock(User userQuery) {
 		userDao.updateToNewLock(userQuery);
+	}
+
+	@Override
+	public List<User> serchUserAll(page page) {
+		// TODO Auto-generated method stub
+		return userDao.serchUserAll(page);
+	}
+
+	@Override
+	public int getCountAll() {
+		// TODO Auto-generated method stub
+		return userDao.getCountAll();
+	}
+
+	@Override
+	public Integer delUser(Integer id) {
+		// TODO Auto-generated method stub
+		return userDao.delete(id);
+	}
+
+	@Override
+	public Integer getcountFabu() {
+		// TODO Auto-generated method stub
+		return userDao.getcountFabu();
+	}
+
+	@Override
+	public List<User> serchByFabu(page page) {
+		// TODO Auto-generated method stub
+		return userDao.serchByFabu(page);
 	}
 
 }
